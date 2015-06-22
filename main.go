@@ -8,9 +8,7 @@ import (
 	"github.com/spiritloose/consulkv/command"
 )
 
-const (
-	VERSION = "HEAD"
-)
+var VERSION string = "HEAD"
 
 func main() {
 	c := cli.NewCLI("consulkv", VERSION)
