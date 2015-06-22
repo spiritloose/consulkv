@@ -1,4 +1,4 @@
-# consulkv
+# consulkv [![Build Status](https://travis-ci.org/spiritloose/consulkv.svg)](https://travis-ci.org/spiritloose/consulkv)
 
 CUI frontend for [Consul](https://consul.io/) Key/value store.
 
