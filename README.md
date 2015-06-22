@@ -2,13 +2,19 @@
 
 CUI frontend for [Consul](https://consul.io/) Key/value store.
 
-## Install
+## Installation
+
+Download latest release binary from [release page](https://github.com/spiritloose/consulkv/releases).
+
+Extract the archive and put `consulkv` binary into the directory that is in your `PATH`.
+
+Or install using `go get` if that's what you want.
 
 ```
 $ go get github.com/spiritloose/consulkv
 ```
 
-## Synopsis
+## Usage
 
 ```
 $ consulkv list
