@@ -40,6 +40,9 @@ func main() {
 		"dump": func() (cli.Command, error) {
 			return &command.Dump{Ui: ui, Output: os.Stdout}, nil
 		},
+		"load": func() (cli.Command, error) {
+			return &command.Load{Ui: ui, Input: os.Stdin}, nil
+		},
 	}
 	exitStatus, err := c.Run()
 	if err != nil {
