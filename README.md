@@ -25,6 +25,8 @@ $ consulkv flags foo
 $ consulkv flags foo 42
 $ consulkv put foo bar
 $ consulkv put foo < /path/to/file
+$ consulkv dump > /path/to/dump.txt
+$ consulkv load < /path/to/dump.txt
 ```
 
 ## Environment Variables
