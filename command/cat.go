@@ -3,14 +3,15 @@ package command
 import (
 	"flag"
 	"fmt"
-	"os"
+	"io"
 
 	"github.com/hashicorp/consul/api"
 	"github.com/mitchellh/cli"
 )
 
 type Cat struct {
-	Ui cli.Ui
+	Ui     cli.Ui
+	Output io.Writer
 }
 
 func (c *Cat) Help() string {
@@ -52,7 +53,7 @@ func (c *Cat) Run(args []string) int {
 			c.Ui.Error(fmt.Sprintf("cat: %s: No such key", key))
 			failed = true
 		} else {
-			os.Stdout.Write(pair.Value)
+			c.Output.Write(pair.Value)
 		}
 	}
 

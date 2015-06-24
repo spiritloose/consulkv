@@ -23,7 +23,7 @@ func main() {
 			return &command.List{Ui: ui}, nil
 		},
 		"cat": func() (cli.Command, error) {
-			return &command.Cat{Ui: ui}, nil
+			return &command.Cat{Ui: ui, Output: os.Stdout}, nil
 		},
 		"put": func() (cli.Command, error) {
 			return &command.Put{Ui: ui}, nil
