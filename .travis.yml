@@ -10,7 +10,11 @@ env:
   - CONSULKV_VERSION=${TRAVIS_TAG#v}
 
 before_install:
+  - go get golang.org/x/tools/cmd/vet
   - go get github.com/hashicorp/consul
+
+before_script:
+  - go vet ./...
 
 before_deploy:
   - go get github.com/laher/goxc

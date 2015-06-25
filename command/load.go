@@ -71,7 +71,7 @@ func (c *Load) Run(args []string) int {
 		if len(valueStr) > 0 {
 			value, err = base64.StdEncoding.DecodeString(valueStr)
 			if err != nil {
-				c.Ui.Error(fmt.Sprintf("Line %d: Error decoding value err: err", lineNum, err))
+				c.Ui.Error(fmt.Sprintf("Line %d: Error decoding value err: %s", lineNum, err))
 				failed = true
 				continue
 			}
