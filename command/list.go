@@ -32,7 +32,7 @@ func (c *List) Run(args []string) int {
 	}
 	args = cmdFlags.Args()
 	if len(args) == 0 {
-		args = []string{""}
+		args = append(args, "")
 	}
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
@@ -49,7 +49,7 @@ func (c *List) Run(args []string) int {
 			return 1
 		}
 		for _, key := range keys {
-			fmt.Println(key)
+			c.Ui.Output(key)
 		}
 	}
 
