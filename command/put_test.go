@@ -13,7 +13,7 @@ func TestPutCommand(t *testing.T) {
 	defer srv.Stop()
 
 	ui := new(cli.MockUi)
-	c := &Put{Ui: ui}
+	c := &Put{UI: ui}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{"foo", "bar"}

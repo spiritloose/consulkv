@@ -18,7 +18,7 @@ func TestCatCommand(t *testing.T) {
 
 	ui := new(cli.MockUi)
 	var output bytes.Buffer
-	c := &Cat{Ui: ui, Output: &output}
+	c := &Cat{UI: ui, Output: &output}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{"foo", "bar"}

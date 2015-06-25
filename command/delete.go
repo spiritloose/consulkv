@@ -9,7 +9,7 @@ import (
 )
 
 type Delete struct {
-	Ui cli.Ui
+	UI cli.Ui
 }
 
 func (c *Delete) Help() string {
@@ -24,7 +24,7 @@ func (c *Delete) Run(args []string) int {
 	var datacenter string
 	var recursive bool
 	cmdFlags := flag.NewFlagSet("delete", flag.ContinueOnError)
-	cmdFlags.Usage = func() { c.Ui.Output(c.Help()) }
+	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }
 	cmdFlags.StringVar(&datacenter, "datacenter", "", "")
 	cmdFlags.BoolVar(&recursive, "recursive", false, "")
 	if err := cmdFlags.Parse(args); err != nil {
@@ -33,12 +33,12 @@ func (c *Delete) Run(args []string) int {
 
 	args = cmdFlags.Args()
 	if len(args) == 0 {
-		c.Ui.Error("Key must be specified")
+		c.UI.Error("Key must be specified")
 		return 1
 	}
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
 	}
 
 	kv := client.KV()
@@ -50,7 +50,7 @@ func (c *Delete) Run(args []string) int {
 			_, err = kv.Delete(key, &options)
 		}
 		if err != nil {
-			c.Ui.Error(fmt.Sprintf("Error deleting key: %s", err))
+			c.UI.Error(fmt.Sprintf("Error deleting key: %s", err))
 			return 1
 		}
 	}

@@ -13,7 +13,7 @@ import (
 )
 
 type Dump struct {
-	Ui     cli.Ui
+	UI     cli.Ui
 	Output io.Writer
 }
 
@@ -28,7 +28,7 @@ func (c *Dump) Synopsis() string {
 func (c *Dump) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("list", flag.ContinueOnError)
-	cmdFlags.Usage = func() { c.Ui.Output(c.Help()) }
+	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }
 	cmdFlags.StringVar(&datacenter, "datacenter", "", "")
 	if err := cmdFlags.Parse(args); err != nil {
 		return 1
@@ -39,7 +39,7 @@ func (c *Dump) Run(args []string) int {
 	}
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
 		return 1
 	}
 	kv := client.KV()
@@ -50,7 +50,7 @@ func (c *Dump) Run(args []string) int {
 	for _, prefix := range args {
 		pairs, _, err := kv.List(prefix, &options)
 		if err != nil {
-			c.Ui.Error(fmt.Sprintf("Error listing key/value: %s", err))
+			c.UI.Error(fmt.Sprintf("Error listing key/value: %s", err))
 			return 1
 		}
 		for _, pair := range pairs {

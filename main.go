@@ -8,7 +8,8 @@ import (
 	"github.com/spiritloose/consulkv/command"
 )
 
-var VERSION string = "HEAD"
+// Version string of consulkv
+var VERSION = "HEAD"
 
 func main() {
 	c := cli.NewCLI("consulkv", VERSION)
@@ -20,28 +21,28 @@ func main() {
 	}
 	c.Commands = map[string]cli.CommandFactory{
 		"list": func() (cli.Command, error) {
-			return &command.List{Ui: ui}, nil
+			return &command.List{UI: ui}, nil
 		},
 		"cat": func() (cli.Command, error) {
-			return &command.Cat{Ui: ui, Output: os.Stdout}, nil
+			return &command.Cat{UI: ui, Output: os.Stdout}, nil
 		},
 		"put": func() (cli.Command, error) {
-			return &command.Put{Ui: ui}, nil
+			return &command.Put{UI: ui}, nil
 		},
 		"edit": func() (cli.Command, error) {
-			return &command.Edit{Ui: ui}, nil
+			return &command.Edit{UI: ui}, nil
 		},
 		"delete": func() (cli.Command, error) {
-			return &command.Delete{Ui: ui}, nil
+			return &command.Delete{UI: ui}, nil
 		},
 		"flags": func() (cli.Command, error) {
-			return &command.Flags{Ui: ui}, nil
+			return &command.Flags{UI: ui}, nil
 		},
 		"dump": func() (cli.Command, error) {
-			return &command.Dump{Ui: ui, Output: os.Stdout}, nil
+			return &command.Dump{UI: ui, Output: os.Stdout}, nil
 		},
 		"load": func() (cli.Command, error) {
-			return &command.Load{Ui: ui, Input: os.Stdin}, nil
+			return &command.Load{UI: ui, Input: os.Stdin}, nil
 		},
 	}
 	exitStatus, err := c.Run()

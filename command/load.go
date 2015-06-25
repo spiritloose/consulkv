@@ -13,7 +13,7 @@ import (
 )
 
 type Load struct {
-	Ui    cli.Ui
+	UI    cli.Ui
 	Input io.Reader
 }
 
@@ -28,7 +28,7 @@ func (c *Load) Synopsis() string {
 func (c *Load) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("load", flag.ContinueOnError)
-	cmdFlags.Usage = func() { c.Ui.Output(c.Help()) }
+	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }
 	cmdFlags.StringVar(&datacenter, "datacenter", "", "")
 	if err := cmdFlags.Parse(args); err != nil {
 		return 1
@@ -36,7 +36,7 @@ func (c *Load) Run(args []string) int {
 
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
 		return 1
 	}
 	kv := client.KV()
@@ -55,13 +55,13 @@ func (c *Load) Run(args []string) int {
 			if err == io.EOF {
 				break
 			}
-			c.Ui.Error(err.Error())
+			c.UI.Error(err.Error())
 			failed = true
 			continue
 		}
 		key := columns[0]
 		if len(key) == 0 {
-			c.Ui.Error(fmt.Sprintf("Line %d: Key must be specified", lineNum))
+			c.UI.Error(fmt.Sprintf("Line %d: Key must be specified", lineNum))
 			failed = true
 			continue
 		}
@@ -71,7 +71,7 @@ func (c *Load) Run(args []string) int {
 		if len(valueStr) > 0 {
 			value, err = base64.StdEncoding.DecodeString(valueStr)
 			if err != nil {
-				c.Ui.Error(fmt.Sprintf("Line %d: Error decoding value err: %s", lineNum, err))
+				c.UI.Error(fmt.Sprintf("Line %d: Error decoding value err: %s", lineNum, err))
 				failed = true
 				continue
 			}
@@ -79,14 +79,14 @@ func (c *Load) Run(args []string) int {
 
 		flagsStr := columns[2]
 		if len(flagsStr) == 0 {
-			c.Ui.Error(fmt.Sprintf("Line %d: Flags must be specified err: %s", lineNum, err))
+			c.UI.Error(fmt.Sprintf("Line %d: Flags must be specified err: %s", lineNum, err))
 			failed = true
 			continue
 		}
 		var flags uint64
 		flags, err = strconv.ParseUint(flagsStr, 10, 0)
 		if err != nil {
-			c.Ui.Error(fmt.Sprintf("Line %d: Error parsing flags err: %s", lineNum, err))
+			c.UI.Error(fmt.Sprintf("Line %d: Error parsing flags err: %s", lineNum, err))
 			failed = true
 			continue
 		}
@@ -94,7 +94,7 @@ func (c *Load) Run(args []string) int {
 		pair := api.KVPair{Key: key, Value: value, Flags: flags}
 		_, err = kv.Put(&pair, &options)
 		if err != nil {
-			c.Ui.Error(fmt.Sprintf("Line %d: Error putting Key/value err: %s", lineNum, err))
+			c.UI.Error(fmt.Sprintf("Line %d: Error putting Key/value err: %s", lineNum, err))
 			failed = true
 			continue
 		}

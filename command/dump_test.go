@@ -18,7 +18,7 @@ func TestDumpCommand(t *testing.T) {
 
 	ui := new(cli.MockUi)
 	var output bytes.Buffer
-	c := &Dump{Ui: ui, Output: &output}
+	c := &Dump{UI: ui, Output: &output}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{}

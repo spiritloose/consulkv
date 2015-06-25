@@ -11,7 +11,7 @@ import (
 )
 
 type Put struct {
-	Ui cli.Ui
+	UI cli.Ui
 }
 
 func (c *Put) Help() string {
@@ -26,7 +26,7 @@ func (c *Put) Run(args []string) int {
 	var datacenter string
 	var flags uint64
 	cmdFlags := flag.NewFlagSet("put", flag.ContinueOnError)
-	cmdFlags.Usage = func() { c.Ui.Output(c.Help()) }
+	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }
 	cmdFlags.StringVar(&datacenter, "datacenter", "", "")
 	cmdFlags.Uint64Var(&flags, "flags", 0, "")
 	if err := cmdFlags.Parse(args); err != nil {
@@ -40,26 +40,26 @@ func (c *Put) Run(args []string) int {
 
 	switch len(args) {
 	case 0:
-		c.Ui.Error("Key must be specified")
+		c.UI.Error("Key must be specified")
 		return 1
 	case 1:
 		key = args[0]
 		value, err = ioutil.ReadAll(os.Stdin)
 		if err != nil {
-			c.Ui.Error(fmt.Sprintf("Error reading data from Stdin: %s", err))
+			c.UI.Error(fmt.Sprintf("Error reading data from Stdin: %s", err))
 			return 1
 		}
 	case 2:
 		key = args[0]
 		value = []byte(args[1])
 	default:
-		c.Ui.Error("Too many arguments")
+		c.UI.Error("Too many arguments")
 		return 1
 	}
 
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
 		return 1
 	}
 	kv := client.KV()
@@ -67,7 +67,7 @@ func (c *Put) Run(args []string) int {
 	pair := api.KVPair{Key: key, Value: value, Flags: flags}
 	_, err = kv.Put(&pair, &api.WriteOptions{Datacenter: datacenter})
 	if err != nil {
-		c.Ui.Error(fmt.Sprintf("Error setting data: %s", err))
+		c.UI.Error(fmt.Sprintf("Error setting data: %s", err))
 		return 1
 	}
 
