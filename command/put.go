@@ -3,8 +3,8 @@ package command
 import (
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
-	"os"
 
 	"github.com/hashicorp/consul/api"
 	"github.com/mitchellh/cli"
@@ -12,7 +12,8 @@ import (
 
 // PutCommand is a Command implementation that puts key/value.
 type PutCommand struct {
-	UI cli.Ui
+	UI    cli.Ui
+	Input io.Reader
 }
 
 // Help prints the Help text for the put command.
@@ -48,7 +49,7 @@ func (c *PutCommand) Run(args []string) int {
 		return 1
 	case 1:
 		key = args[0]
-		value, err = ioutil.ReadAll(os.Stdin)
+		value, err = ioutil.ReadAll(c.Input)
 		if err != nil {
 			c.UI.Error(fmt.Sprintf("Error reading data from Stdin: %s", err))
 			return 1

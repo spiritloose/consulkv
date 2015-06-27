@@ -24,7 +24,7 @@ func init() {
 			return &command.CatCommand{UI: ui, Output: os.Stdout}, nil
 		},
 		"put": func() (cli.Command, error) {
-			return &command.PutCommand{UI: ui}, nil
+			return &command.PutCommand{UI: ui, Input: os.Stdin}, nil
 		},
 		"edit": func() (cli.Command, error) {
 			return &command.EditCommand{UI: ui}, nil
