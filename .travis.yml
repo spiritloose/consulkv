@@ -20,7 +20,7 @@ before_script:
 
 before_deploy:
   - go get github.com/laher/goxc
-  - goxc -d . -pv "$CONSULKV_VERSION"
+  - goxc -t -d . -pv "$CONSULKV_VERSION"
 
 deploy:
   provider: releases
