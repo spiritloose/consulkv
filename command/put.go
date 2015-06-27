@@ -10,19 +10,19 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Put struct {
+type PutCommand struct {
 	UI cli.Ui
 }
 
-func (c *Put) Help() string {
+func (c *PutCommand) Help() string {
 	return "Usage: consulkv put [-datacenter=] [-flags=0] KEY [VALUE]"
 }
 
-func (c *Put) Synopsis() string {
+func (c *PutCommand) Synopsis() string {
 	return "Put key/value"
 }
 
-func (c *Put) Run(args []string) int {
+func (c *PutCommand) Run(args []string) int {
 	var datacenter string
 	var flags uint64
 	cmdFlags := flag.NewFlagSet("put", flag.ContinueOnError)

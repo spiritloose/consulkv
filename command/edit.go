@@ -12,19 +12,19 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Edit struct {
+type EditCommand struct {
 	UI cli.Ui
 }
 
-func (c *Edit) Help() string {
+func (c *EditCommand) Help() string {
 	return "Usage: consulkv edit [-datacenter=] [-flags=0] [-chomp] KEY"
 }
 
-func (c *Edit) Synopsis() string {
+func (c *EditCommand) Synopsis() string {
 	return "Edit value using a editor"
 }
 
-func (c *Edit) Run(args []string) int {
+func (c *EditCommand) Run(args []string) int {
 	var datacenter string
 	var flags uint64
 	var chomp bool
@@ -143,7 +143,7 @@ func (c *Edit) Run(args []string) int {
 	return 0
 }
 
-func (c *Edit) execEditor(filename string) error {
+func (c *EditCommand) execEditor(filename string) error {
 	editor := c.getEditor()
 	cmd := exec.Command(editor, filename)
 	cmd.Stdin = os.Stdin
@@ -156,7 +156,7 @@ func (c *Edit) execEditor(filename string) error {
 	return nil
 }
 
-func (c *Edit) getEditor() string {
+func (c *EditCommand) getEditor() string {
 	editor := os.Getenv("EDITOR")
 	if len(editor) == 0 {
 		editor = "vim"
@@ -164,7 +164,7 @@ func (c *Edit) getEditor() string {
 	return editor
 }
 
-func (c *Edit) askOverwrite() (bool, error) {
+func (c *EditCommand) askOverwrite() (bool, error) {
 	result, err := c.UI.Ask(`WARNING: The key has been changed since reading it!!!
 Do you really want to write to it (y/n)?`)
 	if err != nil {

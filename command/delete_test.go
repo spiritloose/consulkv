@@ -15,7 +15,7 @@ func TestDeleteCommand(t *testing.T) {
 	srv.SetKV("foo", []byte("bar"))
 
 	ui := new(cli.MockUi)
-	c := &Delete{UI: ui}
+	c := &DeleteCommand{UI: ui}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{"foo"}

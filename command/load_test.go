@@ -16,7 +16,7 @@ func TestLoadCommand(t *testing.T) {
 	ui := new(cli.MockUi)
 	input := bytes.NewBufferString("bar\tYmF6\t0\nfoo\tYmFy\t0\n")
 
-	c := &Load{UI: ui, Input: input}
+	c := &LoadCommand{UI: ui, Input: input}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{}

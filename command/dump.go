@@ -12,20 +12,20 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Dump struct {
+type DumpCommand struct {
 	UI     cli.Ui
 	Output io.Writer
 }
 
-func (c *Dump) Help() string {
+func (c *DumpCommand) Help() string {
 	return "Usage: consulkv dump [-datacenter=] [PREFIX...]"
 }
 
-func (c *Dump) Synopsis() string {
+func (c *DumpCommand) Synopsis() string {
 	return "Dump key/values"
 }
 
-func (c *Dump) Run(args []string) int {
+func (c *DumpCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("list", flag.ContinueOnError)
 	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }

@@ -9,19 +9,19 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Flags struct {
+type FlagsCommand struct {
 	UI cli.Ui
 }
 
-func (c *Flags) Help() string {
+func (c *FlagsCommand) Help() string {
 	return "Usage: consulkv flags [-datacenter=] KEY [FLAGS]"
 }
 
-func (c *Flags) Synopsis() string {
+func (c *FlagsCommand) Synopsis() string {
 	return "Get/Set flags"
 }
 
-func (c *Flags) Run(args []string) int {
+func (c *FlagsCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("flags", flag.ContinueOnError)
 	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }

@@ -12,20 +12,20 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Load struct {
+type LoadCommand struct {
 	UI    cli.Ui
 	Input io.Reader
 }
 
-func (c *Load) Help() string {
+func (c *LoadCommand) Help() string {
 	return "Usage: consulkv load [-datacenter=]"
 }
 
-func (c *Load) Synopsis() string {
+func (c *LoadCommand) Synopsis() string {
 	return "Load key/values"
 }
 
-func (c *Load) Run(args []string) int {
+func (c *LoadCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("load", flag.ContinueOnError)
 	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }

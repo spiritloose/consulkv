@@ -9,20 +9,20 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Cat struct {
+type CatCommand struct {
 	UI     cli.Ui
 	Output io.Writer
 }
 
-func (c *Cat) Help() string {
+func (c *CatCommand) Help() string {
 	return "Usage: consulkv cat [-datacenter=] KEY..."
 }
 
-func (c *Cat) Synopsis() string {
+func (c *CatCommand) Synopsis() string {
 	return "Concatenate and print values"
 }
 
-func (c *Cat) Run(args []string) int {
+func (c *CatCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("cat", flag.ContinueOnError)
 	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }

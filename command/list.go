@@ -8,19 +8,19 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type List struct {
+type ListCommand struct {
 	UI cli.Ui
 }
 
-func (c *List) Help() string {
+func (c *ListCommand) Help() string {
 	return "Usage: consulkv list [-datacenter=] [-separator=/] [PREFIX...]"
 }
 
-func (c *List) Synopsis() string {
+func (c *ListCommand) Synopsis() string {
 	return "List keys"
 }
 
-func (c *List) Run(args []string) int {
+func (c *ListCommand) Run(args []string) int {
 	var datacenter string
 	var separator string
 	cmdFlags := flag.NewFlagSet("list", flag.ContinueOnError)

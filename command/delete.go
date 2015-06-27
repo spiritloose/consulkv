@@ -8,19 +8,19 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type Delete struct {
+type DeleteCommand struct {
 	UI cli.Ui
 }
 
-func (c *Delete) Help() string {
+func (c *DeleteCommand) Help() string {
 	return "Usage: consulkv delete [-datacenter=] [-recursive] KEY..."
 }
 
-func (c *Delete) Synopsis() string {
+func (c *DeleteCommand) Synopsis() string {
 	return "Remove key/value entries"
 }
 
-func (c *Delete) Run(args []string) int {
+func (c *DeleteCommand) Run(args []string) int {
 	var datacenter string
 	var recursive bool
 	cmdFlags := flag.NewFlagSet("delete", flag.ContinueOnError)

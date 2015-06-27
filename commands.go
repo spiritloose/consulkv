@@ -18,28 +18,28 @@ func init() {
 	}
 	Commands = map[string]cli.CommandFactory{
 		"list": func() (cli.Command, error) {
-			return &command.List{UI: ui}, nil
+			return &command.ListCommand{UI: ui}, nil
 		},
 		"cat": func() (cli.Command, error) {
-			return &command.Cat{UI: ui, Output: os.Stdout}, nil
+			return &command.CatCommand{UI: ui, Output: os.Stdout}, nil
 		},
 		"put": func() (cli.Command, error) {
-			return &command.Put{UI: ui}, nil
+			return &command.PutCommand{UI: ui}, nil
 		},
 		"edit": func() (cli.Command, error) {
-			return &command.Edit{UI: ui}, nil
+			return &command.EditCommand{UI: ui}, nil
 		},
 		"delete": func() (cli.Command, error) {
-			return &command.Delete{UI: ui}, nil
+			return &command.DeleteCommand{UI: ui}, nil
 		},
 		"flags": func() (cli.Command, error) {
-			return &command.Flags{UI: ui}, nil
+			return &command.FlagsCommand{UI: ui}, nil
 		},
 		"dump": func() (cli.Command, error) {
-			return &command.Dump{UI: ui, Output: os.Stdout}, nil
+			return &command.DumpCommand{UI: ui, Output: os.Stdout}, nil
 		},
 		"load": func() (cli.Command, error) {
-			return &command.Load{UI: ui, Input: os.Stdin}, nil
+			return &command.LoadCommand{UI: ui, Input: os.Stdin}, nil
 		},
 	}
 }

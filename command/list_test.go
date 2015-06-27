@@ -19,7 +19,7 @@ func TestListCommand(t *testing.T) {
 	srv.SetKV("bar", []byte("baz"))
 
 	ui := new(cli.MockUi)
-	c := &List{UI: ui}
+	c := &ListCommand{UI: ui}
 
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
 	args := []string{}
