@@ -158,11 +158,7 @@ func (c *EditCommand) execEditor(filename string) error {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	err := cmd.Run()
-	if err != nil {
-		return err
-	}
-	return nil
+	return cmd.Run()
 }
 
 func (c *EditCommand) getEditor() []string {

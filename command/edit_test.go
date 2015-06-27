@@ -1,7 +1,10 @@
 package command
 
 import (
+	"fmt"
+	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/hashicorp/consul/testutil"
@@ -17,8 +20,15 @@ func TestEditCommand(t *testing.T) {
 	ui := new(cli.MockUi)
 	c := &EditCommand{UI: ui}
 
+	file, _ := ioutil.TempFile(os.TempDir(), "consulkv-test")
+	defer os.Remove(file.Name())
+	fmt.Fprint(file, strings.TrimSpace(`
+#!/bin/sh
+echo barbar > $1
+	`))
+
 	os.Setenv("CONSUL_HTTP_ADDR", srv.HTTPAddr)
-	os.Setenv("EDITOR", "sed -i '' -e 's/bar/barbar/'")
+	os.Setenv("EDITOR", fmt.Sprintf("sh %s", file.Name()))
 	args := []string{"foo"}
 	code := c.Run(args)
 	if code != 0 {
