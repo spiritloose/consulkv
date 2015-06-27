@@ -65,12 +65,11 @@ func (c *EditCommand) Run(args []string) int {
 		file.Write(pair.Value)
 	}
 
-	fi, err := file.Stat()
+	oldFi, err := file.Stat()
 	if err != nil {
 		c.UI.Error(fmt.Sprintf("Error getting stats of tempfile: %s", err))
 		return 1
 	}
-	beforeTime := fi.ModTime()
 
 	err = file.Close()
 	if err != nil {
@@ -89,13 +88,13 @@ func (c *EditCommand) Run(args []string) int {
 		c.UI.Error(fmt.Sprintf("Error opening file: %s", err))
 		return 1
 	}
-	fi, err = file.Stat()
+	fi, err := file.Stat()
 	if err != nil {
 		c.UI.Error(fmt.Sprintf("Error getting stats of tempfile: %s", err))
 		return 1
 	}
 
-	if beforeTime == fi.ModTime() {
+	if oldFi.ModTime() == fi.ModTime() && oldFi.Size() == fi.Size() {
 		c.UI.Warn("Not modified. Aborted")
 		return 1
 	}
@@ -148,8 +147,14 @@ func (c *EditCommand) Run(args []string) int {
 }
 
 func (c *EditCommand) execEditor(filename string) error {
-	editor := c.getEditor()
-	cmd := exec.Command(editor, filename)
+	command := c.getEditor()
+	if len(command) > 1 {
+		args := strings.Join(append(command, filename), " ")
+		command = append([]string{"sh", "-c"}, args)
+	} else {
+		command = append(command, filename)
+	}
+	cmd := exec.Command(command[0], command[1:]...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -160,12 +165,12 @@ func (c *EditCommand) execEditor(filename string) error {
 	return nil
 }
 
-func (c *EditCommand) getEditor() string {
+func (c *EditCommand) getEditor() []string {
 	editor := os.Getenv("EDITOR")
-	if len(editor) == 0 {
-		editor = "vim"
+	if len(editor) != 0 {
+		return strings.Split(editor, " ")
 	}
-	return editor
+	return []string{"vim"}
 }
 
 func (c *EditCommand) askOverwrite() (bool, error) {
