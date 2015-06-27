@@ -12,4 +12,10 @@ lint:
 vet:
 	go vet ./...
 
-.PHONY: all build lint vet fmt
+test:
+	go test -v ./...
+
+clean:
+	go clean
+
+.PHONY: all build fmt lint vet test clean
