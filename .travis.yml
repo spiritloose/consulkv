@@ -12,11 +12,13 @@ env:
 before_install:
   - go get golang.org/x/tools/cmd/goimports
   - go get golang.org/x/tools/cmd/vet
+  - go get github.com/golang/lint/golint
   - go get github.com/hashicorp/consul
 
 before_script:
   - goimports -l ./ | xargs -r false
   - go vet ./...
+  - golint ./... | xargs -r false
 
 before_deploy:
   - go get github.com/laher/goxc

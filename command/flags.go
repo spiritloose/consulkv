@@ -9,18 +9,22 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// FlagsCommand is a Command implementation that gets/sets flags.
 type FlagsCommand struct {
 	UI cli.Ui
 }
 
+// Help prints the Help text for the flags command.
 func (c *FlagsCommand) Help() string {
 	return "Usage: consulkv flags [-datacenter=] KEY [FLAGS]"
 }
 
+// Synopsis provides a precis of the flags command.
 func (c *FlagsCommand) Synopsis() string {
 	return "Get/Set flags"
 }
 
+// Run runs the flags command.
 func (c *FlagsCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("flags", flag.ContinueOnError)

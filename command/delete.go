@@ -8,18 +8,22 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// DeleteCommand is a Command implementation that removes key/value entries.
 type DeleteCommand struct {
 	UI cli.Ui
 }
 
+// Help prints the Help text for the delete command.
 func (c *DeleteCommand) Help() string {
 	return "Usage: consulkv delete [-datacenter=] [-recursive] KEY..."
 }
 
+// Synopsis provides a precis of the delete command.
 func (c *DeleteCommand) Synopsis() string {
 	return "Remove key/value entries"
 }
 
+// Run runs the delete command.
 func (c *DeleteCommand) Run(args []string) int {
 	var datacenter string
 	var recursive bool

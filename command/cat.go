@@ -9,19 +9,23 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// CatCommand is a Command implementation that concatenate and print values.
 type CatCommand struct {
 	UI     cli.Ui
 	Output io.Writer
 }
 
+// Help prints the Help text for the cat command.
 func (c *CatCommand) Help() string {
 	return "Usage: consulkv cat [-datacenter=] KEY..."
 }
 
+// Synopsis provides a precis of the cat command.
 func (c *CatCommand) Synopsis() string {
 	return "Concatenate and print values"
 }
 
+// Run runs the cat command.
 func (c *CatCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("cat", flag.ContinueOnError)

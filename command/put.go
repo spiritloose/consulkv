@@ -10,18 +10,22 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// PutCommand is a Command implementation that puts key/value.
 type PutCommand struct {
 	UI cli.Ui
 }
 
+// Help prints the Help text for the put command.
 func (c *PutCommand) Help() string {
 	return "Usage: consulkv put [-datacenter=] [-flags=0] KEY [VALUE]"
 }
 
+// Synopsis provides a precis of the put command.
 func (c *PutCommand) Synopsis() string {
 	return "Put key/value"
 }
 
+// Run runs the put command.
 func (c *PutCommand) Run(args []string) int {
 	var datacenter string
 	var flags uint64

@@ -12,22 +12,26 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// DumpCommand is a Command implementation that dumps key/values.
 type DumpCommand struct {
 	UI     cli.Ui
 	Output io.Writer
 }
 
+// Help prints the Help text for the dump command.
 func (c *DumpCommand) Help() string {
 	return "Usage: consulkv dump [-datacenter=] [PREFIX...]"
 }
 
+// Synopsis provides a precis of the dump command.
 func (c *DumpCommand) Synopsis() string {
 	return "Dump key/values"
 }
 
+// Run runs the dump command.
 func (c *DumpCommand) Run(args []string) int {
 	var datacenter string
-	cmdFlags := flag.NewFlagSet("list", flag.ContinueOnError)
+	cmdFlags := flag.NewFlagSet("dump", flag.ContinueOnError)
 	cmdFlags.Usage = func() { c.UI.Output(c.Help()) }
 	cmdFlags.StringVar(&datacenter, "datacenter", "", "")
 	if err := cmdFlags.Parse(args); err != nil {

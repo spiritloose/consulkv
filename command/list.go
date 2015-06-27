@@ -8,18 +8,22 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// ListCommand is a Command implementation that lists keys.
 type ListCommand struct {
 	UI cli.Ui
 }
 
+// Help prints the Help text for the list command.
 func (c *ListCommand) Help() string {
 	return "Usage: consulkv list [-datacenter=] [-separator=/] [PREFIX...]"
 }
 
+// Synopsis provides a precis of the list command.
 func (c *ListCommand) Synopsis() string {
 	return "List keys"
 }
 
+// Run runs the list command.
 func (c *ListCommand) Run(args []string) int {
 	var datacenter string
 	var separator string

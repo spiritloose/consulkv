@@ -12,18 +12,22 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// EditCommand is a Command implementation that edits value using an editor
 type EditCommand struct {
 	UI cli.Ui
 }
 
+// Help prints the Help text for the edit command
 func (c *EditCommand) Help() string {
 	return "Usage: consulkv edit [-datacenter=] [-flags=0] [-chomp] KEY"
 }
 
+// Synopsis provides a precis of the edit command.
 func (c *EditCommand) Synopsis() string {
-	return "Edit value using a editor"
+	return "Edit value using an editor"
 }
 
+// Run runs the edit command.
 func (c *EditCommand) Run(args []string) int {
 	var datacenter string
 	var flags uint64

@@ -12,19 +12,23 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+// LoadCommand is a Command implementation that loads key/values.
 type LoadCommand struct {
 	UI    cli.Ui
 	Input io.Reader
 }
 
+// Help prints the Help text for the load command.
 func (c *LoadCommand) Help() string {
 	return "Usage: consulkv load [-datacenter=]"
 }
 
+// Synopsis provides a precis of the load command.
 func (c *LoadCommand) Synopsis() string {
 	return "Load key/values"
 }
 
+// Run runs the load command.
 func (c *LoadCommand) Run(args []string) int {
 	var datacenter string
 	cmdFlags := flag.NewFlagSet("load", flag.ContinueOnError)
