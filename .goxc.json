@@ -5,5 +5,6 @@
 		"archive-tar-gz"
 	],
 	"BuildConstraints": "linux,amd64,386 darwin,amd64 windows,386",
+	"ResourcesInclude": "README*,LICENSE*,CHANGELOG*",
 	"ConfigVersion": "0.9"
 }
