@@ -24,19 +24,22 @@ before_script:
   - go vet ./...
   - golint ./... | xargs -r false
 
+script:
+  - go test -v ./...
+
 before_deploy:
   - go get github.com/laher/goxc
-  - goxc -t -d . -pv "$CONSULKV_VERSION"
+  - goxc -+tasks=toolchain -wd=. -d "$TRAVIS_BUILD_DIR" -pv "$CONSULKV_VERSION"
 
 deploy:
   provider: releases
   api_key:
     secure: LZrfgj3SKPVA/0up2QOU1MdB2VivYRuuNCVl6dx3keHoZ4OQXY3V1zibC7iqymW8LgYjaYxVGAKqzT/HM5voL0T8YmL6GP0YdgyRn5INCKJkO6kPOp8AtIuK2UdvDPk4RVX4weITml/2/XSYst2jDnem3bt8uZPYXCs+S2ZLqLNvdO3EdBNkNEaKC4VSi5eIHWZBpks6IRWoKIAlkZa7ydvToSGqbB+H0oB8jb0ISNMZE3nqw7J6HAZ6o6JkWOFHKopjlRqSGT4Gzm37hUV2az5m65C4x8as/7edme/YCf140ZaadV5f/rd+lixZ4IJFHVKYB5nd3Gq2wiGNJLwLeh+pYvDbGvdGbPcX/KwMBQ8zFNxWHztKaGN1qRPsvqs23K7WXhkvd1hzmFivB7HDj3odTbrhTJpkDgm1RMNE2uzL+EAOgVEVStEcNemvP6N0DCuYXprcZu8/JJz52HW5Y8WFYVwR3mrAijwoMbj3E7uZZ1ldoo+Cac4ucZ/Fzjgxz2Ca83FCVXphcDaTtKSlu/mTm92spIcV+pDk4ExSKuE6dXJh4XCo7UU1M3kGlYONK2RokXlCCUDbQ40J3npAhQ85jaVsCzr66EAmsVTa9bDHLnzvOqYK1Z5T+qQf3RyA4cYVC92j5V7GOHtVBs9lZVEcQIZcj+dgCNp1aFq+wHQ=
   file:
-    - $CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_darwin_amd64.zip
-    - $CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_linux_386.tar.gz
-    - $CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_linux_amd64.tar.gz
-    - $CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_windows_386.zip
+    - "$TRAVIS_BUILD_DIR/$CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_darwin_amd64.zip"
+    - "$TRAVIS_BUILD_DIR/$CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_linux_386.tar.gz"
+    - "$TRAVIS_BUILD_DIR/$CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_linux_amd64.tar.gz"
+    - "$TRAVIS_BUILD_DIR/$CONSULKV_VERSION/consulkv_${CONSULKV_VERSION}_windows_386.zip"
   skip_cleanup: true
   on:
     repo: spiritloose/consulkv
