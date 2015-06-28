@@ -43,6 +43,7 @@ func (c *DeleteCommand) Run(args []string) int {
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
 		c.UI.Error(fmt.Sprintf("Error connecting to Consul agent: %s", err))
+		return 1
 	}
 
 	kv := client.KV()
