@@ -21,4 +21,4 @@ xc:
 clean:
 	go clean
 
-.PHONY: all build fmt lint vet test clean
+.PHONY: all build fmt lint vet test xc clean
