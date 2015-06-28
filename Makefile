@@ -1,3 +1,5 @@
+VERSION = $(shell awk -F\" '/^var VERSION/ { print $$2 }' main.go)
+
 all: fmt lint vet build
 
 build:
@@ -16,7 +18,7 @@ test:
 	go test -v ./...
 
 xc:
-	goxc
+	goxc -pv $(VERSION)
 
 clean:
 	go clean
