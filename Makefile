@@ -15,6 +15,9 @@ vet:
 test:
 	go test -v ./...
 
+xc:
+	goxc
+
 clean:
 	go clean
 
