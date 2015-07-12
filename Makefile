@@ -17,10 +17,17 @@ vet:
 test:
 	go test -v ./...
 
+dep:
+	go get
+	go get golang.org/x/tools/cmd/goimports
+	go get golang.org/x/tools/cmd/vet
+	go get github.com/golang/lint/golint
+	go get github.com/laher/goxc
+
 xc:
 	goxc -pv $(VERSION)
 
 clean:
 	go clean
 
-.PHONY: all build fmt lint vet test xc clean
+.PHONY: all build fmt lint vet test dep xc clean
