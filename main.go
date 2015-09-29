@@ -9,7 +9,7 @@ import (
 )
 
 // Version string of consulkv
-var VERSION = "0.2.0-dev"
+var VERSION = "0.2.0"
 
 func main() {
 	c := cli.NewCLI("consulkv", VERSION)
